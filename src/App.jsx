@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route exact path="/The-Meme-App" element={<Home />}></Route>
           <Route path="/The-Meme-App/Meme-Feed" element={<MemeFeed />}></Route>
-          <Route path="Meme-Editor" element={<MemeEditor />}></Route>
+          <Route path="/The-Meme-App/Meme-Editor" element={<MemeEditor />}></Route>
           <Route path="/The-Meme-App/Tweet-Editor" element={<TweetEditor />}></Route>
         </Routes>
       </Router>
