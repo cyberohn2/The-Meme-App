@@ -4,7 +4,24 @@ const Home = () =>{
 
     return(
         <>
-            <h1 className="text-xl font-bold text-text">The <Link to="/The-Meme-App/Meme-Feed">Meme</Link> App is up and running</h1>
+            <div>
+                <nav>
+                    <h1>TMA</h1>
+                    <ul>
+                        <li>Home</li>
+                        <li>Meme Feed</li>
+                        <li>Meme Maker</li>
+                        <li>Tweets Editor</li>
+                        <li>About</li>
+                    </ul>
+                </nav>
+                <div>
+                    <div>
+                        <h1>Lorem, ipsum.</h1>
+                        
+                    </div>
+                </div>
+            </div>
         </>
     )
 };
