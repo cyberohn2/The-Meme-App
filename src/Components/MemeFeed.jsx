@@ -1,5 +1,5 @@
 import MemeBox from "./MemeBox";
-import Navigation from "./Navigation";
+import meme1 from "/meme1.png"
 
 const MemeFeed = () =>{
     return(

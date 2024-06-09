@@ -5,13 +5,26 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        "vertical": "repeat(auto-fill, 1fr)",
+        "horizontal": "repeat(320px, minmax(0, 1fr))"
+      },
+      gap: {
+        "gridspace": "clamp(1rem, 2vmin, 2rem)"
+      },
+      margin: {
+        "gridspace": "clamp(1rem, 2vmin, 2rem)"
+      }
+    },
     colors: {
       'text': 'var(--text)',
       'background': 'var(--background)',
       'primary': 'var(--primary)',
       'secondary': 'var(--secondary)',
       'accent': 'var(--accent)',
+      'accent-transparent': 'var(--accent-transparent)',
+      'gray': '#ecf8f5'
      },
      fontFamily: {
       inter: 'Inter',

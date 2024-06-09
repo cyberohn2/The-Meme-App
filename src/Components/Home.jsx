@@ -1,61 +1,23 @@
-import meme1 from "/meme1.png"
-import meme2 from "/meme2.webp"
-import meme3 from "/meme3.webp"
-import meme4 from "/meme4.png"
-import meme5 from "/meme5.webp"
-import meme6 from "/meme6.webp"
-import meme7 from "/meme7.webp"
-import meme8 from "/meme8.png"
-import meme9 from "/meme9.webp"
-import meme10 from "/meme10.webp"
-import meme11 from "/meme11.png"
-import meme12 from "/meme12.webp"
-import meme13 from "/meme13.webp"
-import meme14 from "/meme14.webp"
-import meme15 from "/meme15.webp"
-import meme16 from "/meme16.webp"
-import meme17 from "/meme17.webp"
-import meme18 from "/meme18.webp"
-import meme19 from "/meme19.webp"
-import meme20 from "/meme20.webp"
-import meme21 from "/meme21.webp"
+import heroImg from '/hero-img.png'
+import meme1 from '/meme1.png'
 import MemeBox from "./MemeBox";
+import { Link } from "react-router-dom"
 
 const Home = () =>{
 
     return(
-        <div>
-            <section className="hero">
-                <div className="hero-text">
-                    <h1 className="font-bold">Let Go Of Your Worries and LOL</h1>
-                    <p>Read memes and laugh away your sorrow, or make them 😎</p>
-                    <div>
-                        <Link to="/The-Meme-App/Meme-Feed">Meme Feed</Link>
-                        <Link to="/The-Meme-App/Meme-Editor">Meme Editor</Link>
+        <div className="max-w-[1200px] mx-auto mt-10">
+            <section className="hero flex justify-between items-start">
+                <div className="hero-text basis-[40%] py-2">
+                    <h1 className="font-bold text-[4.25rem] leading-tight mb-4">Let Go Of Your Worries and Just <span className='text-accent underline' title='Laugh out Loud'>LOL.</span></h1>
+                    <p className='text-xl text-gray font-bold'>Read memes and laugh away your sorrow, <br />or make them 😎</p>
+                    <div className='mt-6'>
+                        <Link className='px-4 py-2 bg-gray text-text font-bold rounded-md hover:bg-accent hover:text-gray mr-2' to="/The-Meme-App/Meme-Feed">Meme Feed</Link>
+                        <Link className='px-4 py-2 bg-accent text-gray font-bold rounded-md hover:bg-gray hover:text-accent' to="/The-Meme-App/Meme-Editor">Meme Editor</Link>
                     </div>
                 </div>
-                <div className="hero-img">
-                        <img src={meme1} alt="meme image" />
-                        <img src={meme2} alt="meme image" />
-                        <img src={meme3} alt="meme image" />
-                        <img src={meme4} alt="meme image" />
-                        <img src={meme5} alt="meme image" />
-                        <img src={meme6} alt="meme image" />
-                        <img src={meme7} alt="meme image" />
-                        <img src={meme8} alt="meme image" />
-                        <img src={meme9} alt="meme image" />
-                        <img src={meme10} alt="meme image" />
-                        <img src={meme11} alt="meme image" />
-                        <img src={meme12} alt="meme image" />
-                        <img src={meme13} alt="meme image" />
-                        <img src={meme14} alt="meme image" />
-                        <img src={meme15} alt="meme image" />
-                        <img src={meme16} alt="meme image" />
-                        <img src={meme17} alt="meme image" />
-                        <img src={meme18} alt="meme image" />
-                        <img src={meme19} alt="meme image" />
-                        <img src={meme20} alt="meme image" />
-                        <img src={meme21} alt="meme image" />
+                <div className="hero-img basis-[50%] ">
+                    <img width="90%" src={heroImg} alt="" />
                 </div>
             </section>
             <section className="meme-feed-cta">

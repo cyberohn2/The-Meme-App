@@ -4,10 +4,11 @@
 @layer base {
     :root {
       --text: #071310;
-      --background: #fbfefd;
+      --background: #002333;
       --primary: #f78308;
       --secondary: #3ddbaf;
       --accent: #22ce7b;
+      --accent-transparent: #03ff8509;
     }
     .dark {
       --text: #ecf8f5;
