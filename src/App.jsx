@@ -11,7 +11,7 @@ import Footer from "./Components/Footer"
 function App() {
 
   return (
-    <div className="bg-background text-[white]">
+    <div className="bg-background text-[white] relative">
       <Router >
         <Navigation />
         <Routes>
