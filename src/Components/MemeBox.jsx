@@ -1,7 +1,7 @@
 import downloadIcon from '../assets/download.svg'
 import shareIcon from '../assets/share.svg'
 
-const MemeBox = ({image, caption, author, postLink}) => {
+const MemeBox = ({image, caption, author, postLink, id}) => {
     const handleCopy = (e) =>{
         navigator.clipboard.writeText(caption)
         e.target.textContent = "Copied!"
@@ -11,7 +11,7 @@ const MemeBox = ({image, caption, author, postLink}) => {
     }
 
     return(
-        <div className="memebox shadow-xl border border-[#585e5c] rounded-lg p-3 bg-[#1d1f1e]">
+        <div key={id} className="memebox shadow-xl border border-[#585e5c] rounded-lg p-3 bg-[#1d1f1e]">
             <div className="rounded-md mb-4 overflow-hidden h-36" style={{backgroundImage: `url(${image})`, backgroundSize: "contain", backgroundPosition: 'center', backgroundRepeat: 'no-repeat'}}>
                 {/* <img className='w-full' src={image} alt="" /> */}
             </div>
