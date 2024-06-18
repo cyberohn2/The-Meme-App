@@ -2,8 +2,12 @@ import heroImg from '/hero-img.png'
 import meme1 from '/meme1.png'
 import MemeBox from "./MemeBox";
 import { Link } from "react-router-dom"
+import useFetch from '../useFetch';
+import SuspenseComp from './SuspenseComp';
 
 const Home = () =>{
+    const {resource, isLoading, error} = useFetch("https://meme-api.com/gimme/8")
+    const susArray = ["","","","","","","","","","","",""]
 
     return(
         <div className="max-w-[1200px] mx-auto mt-10 px-4">
@@ -23,38 +27,16 @@ const Home = () =>{
             <section className="meme-feed-cta mb-20">
                 <h2 className='text-5xl text-center font-bold mb-6'>Meme Feed</h2>
                 <div className="meme-wrapper grid gird-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
-                    <MemeBox 
-                    image={meme1} 
-                    caption="Lorem ipsum dolor sit amet consectetur adipisicing elit." 
-                    />
-                    <MemeBox 
-                    image={meme1} 
-                    caption="Lorem ipsum dolor sit amet consectetur adipisicing elit." 
-                    />
-                    <MemeBox 
-                    image={meme1} 
-                    caption="Lorem ipsum dolor sit amet consectetur adipisicing elit." 
-                    />
-                    <MemeBox 
-                    image={meme1} 
-                    caption="Lorem ipsum dolor sit amet consectetur adipisicing elit." 
-                    />
-                    <MemeBox 
-                    image={meme1} 
-                    caption="Lorem ipsum dolor sit amet consectetur adipisicing elit." 
-                    />
-                    <MemeBox 
-                    image={meme1} 
-                    caption="Lorem ipsum dolor sit amet consectetur adipisicing elit." 
-                    />
-                    <MemeBox 
-                    image={meme1} 
-                    caption="Lorem ipsum dolor sit amet consectetur adipisicing elit." 
-                    />
-                    <MemeBox 
-                    image={meme1} 
-                    caption="Lorem ipsum dolor sit amet consectetur adipisicing elit." 
-                    />
+                {resource && resource.memes.map((meme, index) =>
+                     <MemeBox 
+                        image={meme.preview[3]}
+                        caption={meme.title}
+                        author={meme.author}
+                        postLink={meme.postLink}
+                     />
+                    )}
+                    {isLoading && susArray.map( (susItem, index) =><SuspenseComp key={index} id={index} />)}
+                    {error && <div className='text-center text-lg font-bold'>{error}</div>}
                 </div>
                 <Link className='px-4 py-2 bg-accent text-gray font-bold rounded-md hover:bg-gray hover:text-accent block w-fit mx-auto' to="/The-Meme-App/Meme-Feed">See More</Link>
             </section>

@@ -4,7 +4,7 @@
 @layer base {
     :root {
       --text: #071310;
-      --background: #002333;
+      --background: #15191b;
       --primary: #f78308;
       --secondary: #3ddbaf;
       --accent: #22ce7b;
@@ -18,19 +18,6 @@
       --accent: #31dd8a;
     }
   }  
-  .glass{
-    backdrop-filter: blur(64px);
-    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  }
-  .glass::before{
-    content: '';
-    position: absolute;
-    z-index: -10;
-    inset: 0;
-    opacity: .3;
-  }
-  .translate-z{
-    transform: translateZ(0);
+  .active{
+    color: var(--accent);
   }
