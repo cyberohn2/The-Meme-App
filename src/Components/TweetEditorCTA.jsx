@@ -8,7 +8,7 @@ const TweetEditorCTA = () =>{
         const inputValue = e.target.value
         setTweetLink(inputValue)
         inputValue !== '' ? setInputChanged(true) : setInputChanged(false)
-        const tweetURLRegex = /^https?:\/\/(www\.)?twitter\.com\/([a-zA-Z0-9_]+)/;
+        const tweetURLRegex = /^https?:\/\/(www\.)?X\.com\/([a-zA-Z0-9_]+)/;
         setIsValid(tweetURLRegex.test(inputValue))
     }
 
