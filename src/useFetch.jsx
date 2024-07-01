@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 
-function useFetch(url, reload) {
+function useFetch(url) {
     const [resource, setResource] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
 
     useEffect(() =>{
-        console.log('running')
             fetch(url)
             .then(res => {
                 if (!res.ok) {
@@ -24,7 +23,7 @@ function useFetch(url, reload) {
                 setIsLoading(false)
             })
 
-    }, [url, reload])
+    }, [url])
 
     return {resource, isLoading, error}
 }

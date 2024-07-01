@@ -6,29 +6,62 @@ import { useEffect, useState } from "react";
 import { useRef } from "react";
 
 const MemeFeed = () =>{
-    const susArray = ["","","","","","","","","","","",""]
-    const [reload, setReload] = useState(false)
+    const [memeNum, setMemeNum] = useState(32)
+    const [resource, setResource] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState(null)
     const ref = useRef(null)
-    const resourceArray = useRef(null)
-    const {resource, isLoading, error} = useFetch("https://meme-api.com/gimme/32", reload.current)
-    if(resource){
-        resourceArray.current = [...resource.memes]
-        const handleReload = (entries) =>{
-            if (entries.some((entry) => entry.isIntersecting)) {
-                console.log("is intersecting oo");
-                setReload( r => !r)
-                
-            }}
-        const observer = new IntersectionObserver(handleReload)
-        if (ref.current) {
-            observer.observe(ref.current);
+    const isvisble = useRef(false)
+
+    const onIntersection = ([entry]) =>{
+        if (entry.isIntersecting) {
+            isvisble.current = !isvisble.current
+            console.log('is visible');
+            getMemes()
+            setMemeNum( m => m+10)
         }
     }
+    
+    useEffect(() =>{
+        const observer = new IntersectionObserver(onIntersection)
+
+        if (ref.current) {
+            observer.observe(ref.current)
+        }
+
+        return () =>{
+            if (observer) {
+                observer.disconnect()
+            }
+        }
+    }, [isvisble])
+
+    async function getMemes () {
+            fetch(`https://meme-api.com/gimme/${memeNum}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw Error("couldn't fetch data, kindly reload")
+                }
+                return res.json();
+            })
+            .then(data => {
+                setResource(r => [...r, ...data.memes])
+                setIsLoading(false)
+                setError(null)
+            })
+            .catch( err => {
+                setError(err.message)
+                setIsLoading(false)
+            })
+
+
+    }
+
     return(
         <>
             <h1 className='text-5xl text-center font-bold my-6'>Meme Feed</h1>
             <div className="meme-wrapper grid gird-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
-                {resourceArray.current && resourceArray.current.map((meme, index) =>
+                {resource != [] && resource.map((meme, index) =>
                 <MemeBox 
                     image={meme.preview[3]}
                     caption={meme.title}
@@ -37,8 +70,8 @@ const MemeFeed = () =>{
                     key={index}
                 />
                 )}
-                {isLoading && susArray.map( (susItem, index) =><SuspenseComp key={index} id={index} />)}
-                {error && susArray.map( (susItem, index) =><SuspenseComp key={index} id={index} />)}
+                {isLoading && <LandMark ref={ref}/>}
+                {error && <div>There was an error while fetching data</div>}
             </div>
             <LandMark ref={ref} />
         </>
