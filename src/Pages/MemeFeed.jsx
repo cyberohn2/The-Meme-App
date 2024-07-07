@@ -60,7 +60,7 @@ const MemeFeed = () =>{
     return(
         <>
             <h1 className='text-5xl text-center font-bold my-6'>Meme Feed</h1>
-            <div className="meme-wrapper grid gird-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
+            <div className="meme-wrapper grid gird-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10 max-w-[1200px] mx-auto mt-10 px-4">
                 {resource != [] && resource.map((meme, index) =>
                 <MemeBox 
                     image={meme.preview[3]}

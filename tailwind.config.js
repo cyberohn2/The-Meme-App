@@ -8,7 +8,8 @@ export default {
     extend: {
       gridTemplateColumns: {
         "vertical": "repeat(auto-fill, 1fr)",
-        "horizontal": "repeat(320px, minmax(0, 1fr))"
+        "horizontal": "repeat(320px, minmax(0, 1fr))",
+        "3-cols": "repeat(3, minmax(400px, 1fr))"
       },
       gap: {
         "gridspace": "clamp(1rem, 2vmin, 2rem)"

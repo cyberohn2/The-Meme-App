@@ -12,7 +12,7 @@ const Navigation = () =>{
     }
 
     return(
-        <header className="sticky top-1">
+        <header className="sticky top-1 z-50">
             <nav className="p-4 flex justify-between max-w-[1200px] mx-auto items-center sticky top-1 bg-accent-transparent rounded-full filter backdrop-blur-3xl shadow-md isolate before:-z-10 before:absolute before:inset-0 before:bg-accent-transparent before:opacity-30 before:rounded-full">
                 <h1 className="font-bold text-3xl font-inter text-accent ml-2"><Link  to="/The-Meme-App">T.M.A</Link></h1>
                 <div className="basis-[75%] hidden md:block">
