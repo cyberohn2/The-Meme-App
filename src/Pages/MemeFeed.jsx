@@ -16,7 +16,6 @@ const MemeFeed = () =>{
     const onIntersection = ([entry]) =>{
         if (entry.isIntersecting) {
             isvisble.current = !isvisble.current
-            console.log('is visible');
             getMemes()
             setMemeNum( m => m+10)
         }
