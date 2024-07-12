@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import palette from "../assets/palette.svg";
 import heroImg from "/hero-img.png";
 import useDrag from "../useDrag";
@@ -186,20 +186,21 @@ const MemeEditor = () => {
         const index = Number(e.target.getAttribute("data-index"));
         setImages(prev => prev.filter((_, i) => i !== index));
     };
-    useEffect(() =>{
-        const texts = document.querySelectorAll(".meme-text")
-        memeImages && useDrag(texts)
+    useEffect(()=>{
+        if (memeArray) {
+            const memeTexts = document.querySelectorAll('.meme-text')
+            const parent = document.querySelector('.meme-image')
+            useDrag(memeTexts,parent)
+        }
+    }, [memeArray, memeImages])
+    useEffect(()=>{
+        if (memeArray) {
+            const Images = document.querySelectorAll('.meme-images')
+            const parent = document.querySelector('.meme-image')
+            useDrag(Images,parent)
+        }
     }, [memeArray, memeImages])
     
-    
-    // handle is collapsed is not working - done
-// want to bold text option - done
-// want to add brand image - done
-// want to add meme images tab - done
-// want to bg image - done
-// want to style action btns - done
-// want to make responsive - done
-// want to add text/image move around feature
 
     return (
         <>
@@ -209,14 +210,13 @@ const MemeEditor = () => {
                     <label htmlFor="meme-img" className="px-4 py-2 w-fit whitespace-nowrap bg-accent text-gray font-bold rounded-md hover:bg-gray hover:text-accent cursor-pointer">Background Color</label>
                     <input onChange={handleBgColor} className="hidden" type="color" name="meme-img" id="meme-img" value={bgColor} />
                 </div>
-
                 <div style={{ background: bgColor }} className="meme-image md:w-[400px] w-[300px] h-[350px] p-2 mb-4 text-text border-4 rounded-[10px] bg-gray border-accent shadow-lg relative overflow-hidden">
                     <span className="absolute top-2 right-2 text-[#0000003f] font-bold block">{brandName} <img className="inline rounded-full" src={brandImage.url || heroImg} width="30px" /></span>
                     {memeArray.map((meme, index) => (
-                        <input key={index} type="text" onChange={handleMemeText} data-index={index} value={meme.text} style={{ color: meme.color, fontFamily: meme.font, fontSize: `${meme.textSize}px`, fontWeight: meme.isBold ? "bolder" : "normal" }} className="meme-text outline-none absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 text-center bg-[transparent] text-sm" />
+                        <input key={index} type="text" onChange={handleMemeText} data-index={index} value={meme.text} style={{ color: meme.color, fontFamily: meme.font, fontSize: `${meme.textSize}px`, fontWeight: meme.isBold ? "bolder" : "normal" }} className="meme-text outline-none absolute text-center bg-[transparent] text-sm" />
                     ))}
                     {memeImages && memeImages.map((image, index) => (
-                        <img key={index} src={image.url} style={{ width: `${image.size}px`, height: `${image.size}px` }} />
+                        <img className="meme-images absolute" key={index} src={image.url} style={{ width: `${image.size}px`, height: `${image.size}px` }} />
                     ))}
                 </div>
 
