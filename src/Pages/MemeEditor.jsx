@@ -302,7 +302,7 @@ const MemeEditor = () => {
                 </div>
             </div>
         </>
-    );
+    ); 
 };
 
 export default MemeEditor;
