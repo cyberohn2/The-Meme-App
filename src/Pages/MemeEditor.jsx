@@ -18,7 +18,8 @@ const MemeEditor = () => {
         font: "Arial", 
         textSize: 16, 
         isBold: false, 
-        isCollapsed: true
+        isCollapsed: true,
+        position: {top: '', left: ''}
     }]);
 
     const fonts = useRef([
@@ -189,17 +190,25 @@ const MemeEditor = () => {
     useEffect(()=>{
         if (memeArray) {
             const memeTexts = document.querySelectorAll('.meme-text')
+            const Images = document.querySelectorAll('.meme-images')
             const parent = document.querySelector('.meme-image')
-            useDrag(memeTexts,parent)
+            useDrag([...memeTexts, ...Images],parent)
         }
     }, [memeArray, memeImages])
     useEffect(()=>{
-        if (memeArray) {
-            const Images = document.querySelectorAll('.meme-images')
-            const parent = document.querySelector('.meme-image')
-            useDrag(Images,parent)
-        }
-    }, [memeArray, memeImages])
+        const memeTexts = document.querySelectorAll('.meme-text')
+
+        memeTexts.forEach( (text,index) =>{
+            setMemeArray(prev => {
+                const newState = [...prev];
+                newState[index] = {
+                    ...newState[index],
+                    position: {...newState[index].position, top: text.style.top, left: text.style.left}
+                };
+                return newState;
+            });
+        })
+    },[ memeImages])
     
 
     return (
