@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from 'react-router-dom';
 import palette from "../assets/palette.svg";
 import heroImg from "/hero-img.png";
 
 
 const TweetEditor = () =>{
+    const location = useLocation();
 
     const [bgColor, setBgColor] = useState("#ffffff");
     const [translateValue, setTranslateValue] = useState("translate-x-0");
@@ -24,9 +26,17 @@ const TweetEditor = () =>{
         profilePic: ''
     });
     const [textArray, setTextArray] = useState()
-    const [errorMessage, setErrorMessage] = useState("")
+    const [errorMessage, setErrorMessage] = useState("This feature might not work properly, kindly try out other feature of the app 😁😁")
       
-
+    useEffect(()=>{
+        if (location.state) {
+            const inputValue = location.state?.tweetLink;
+            document.querySelector('.tweet-link').value = inputValue
+            setTweetLink( prev => prev = inputValue)
+            getTweetInfo()
+        }
+    },[])
+  
 
 
     const handleBgColor = (e) => {
@@ -137,7 +147,7 @@ const TweetEditor = () =>{
         setTweetLink( prev => prev = e.target.value)
     }
     const getTweetInfo = async () =>{
-        const tweetURLRegex_1 = /^https?:\/\/(www\.)?X\.com\/([a-zA-Z0-9_]+)/;
+        const tweetURLRegex_1 = /^https?:\/\/(www\.)?x\.com\/([a-zA-Z0-9_]+)/;
         const tweetURLRegex_2= /^https?:\/\/(www\.)?twitter\.com\/([a-zA-Z0-9_]+)/;
 
         if (tweetURLRegex_1.test(tweetLink) || tweetURLRegex_2.test(tweetLink)) {
@@ -203,7 +213,7 @@ const TweetEditor = () =>{
                     <div className="flex gap-2 items-end">
                         <div className="w-full">
                             <label className="block text-[#776e6e]" htmlFor="tweet-link">Paste Tweet Link</label>
-                            <input className="p-2 rounded-lg outline outline-2 outline-text focus:outline-accent text-text w-full" type="text" name="tweet-link" id="tweet-link" value={tweetLink} onChange={handleTweetLink} />
+                            <input className="tweet-link p-2 rounded-lg outline outline-2 outline-text focus:outline-accent text-text w-full" type="text" name="tweet-link" id="tweet-link" value={tweetLink} onChange={handleTweetLink} />
                         </div>
                         <button onClick={getTweetInfo} className="px-4 py-2 w-fit whitespace-nowrap bg-accent text-gray font-bold rounded-md hover:bg-gray hover:text-accent">Get Tweets</button>
                     </div>

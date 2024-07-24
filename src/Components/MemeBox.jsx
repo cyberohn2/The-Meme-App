@@ -19,7 +19,7 @@ const MemeBox = ({image, caption, author, postLink, id}) => {
             <p className="caption text-[#ecf8f5] font-semibold mb-4">{caption}</p>
             <div className="divider border-t border-[#a7b8b3] mb-4 "></div>
             <div className='text-[#6d7a77] flex items-center gap-2 text-sm font-semibold mt-auto'>
-                <a href={image} download={caption} className='flex items-center gap-1 hover:text-gray'><img width={10} src={downloadIcon} alt="" /><p>Download</p></a>
+                <a href={image} download className='flex items-center gap-1 hover:text-gray'><img width={10} src={downloadIcon} alt="" /><p>Download</p></a>
                 <button onClick={handleCopy} className='flex items-center gap-1 hover:text-gray'><img width={10} src={shareIcon} alt="" /><p>Caption</p></button>
             </div>
         </div>
