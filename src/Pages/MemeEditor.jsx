@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import palette from "../assets/palette.svg";
 import heroImg from "/hero-img.png";
 import useDrag from "../useDrag";
+import html2canvas from 'html2canvas';
 
 const MemeEditor = () => {
     const [bgColor, setBgColor] = useState("#ffffff");
@@ -25,6 +26,20 @@ const MemeEditor = () => {
     const fonts = useRef([
         "Arial", "Calibri", "Times New Roman", "Helvetica", "Sans-Serif", "Verdana", "Georgia", "Courier New", "Trebuchet MS", "Comic Sans", "Impact", "Lucida Console", "Monaco", "Brush Script MT", "Segoe UI", "Open Sans", "Lato", "Merriweather", "Playfair Display", "Ubuntu", "Garamond", "Bodoni", "Didot", "Futura", "Avant Garde", "Gill Sans", "Lobster", "Pacifico", "Dancing Script", "Museo", "Rockwell", "Arial Black", "Courier", "Franklin Gothic Medium", "Lucida Sans Unicode"
     ]);
+
+    const memeRef = useRef();
+
+    const downloadMeme = async () => {
+        const element = memeRef.current;
+        const canvas = await html2canvas(element, { useCORS: true });
+        const dataUrl = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = 'meme.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
 
     const handleBgColor = (e) => {
         setBgColor(e.target.value);
@@ -68,16 +83,18 @@ const MemeEditor = () => {
     };
 
     const handleMemeText = (e) => {
-        const index = Number(e.target.getAttribute("data-index"));
+        const newText = e.target.value;
+        const index = e.target.getAttribute("data-index")
+    
         setMemeArray(prev => {
-            const newState = [...prev];
-            newState[index] = {
-                ...newState[index],
-                text: e.target.value
-            };
-            return newState;
+          const newState = [...prev];
+          newState[index] = {
+            ...newState[index],
+            text: newText
+          };
+          return newState;
         });
-    };
+      };
 
     const handleMemeFont = (e) => {
         const index = Number(e.target.getAttribute("data-index"));
@@ -219,10 +236,10 @@ const MemeEditor = () => {
                     <label htmlFor="meme-img" className="px-4 py-2 w-fit whitespace-nowrap bg-accent text-gray font-bold rounded-md hover:bg-gray hover:text-accent cursor-pointer">Background Color</label>
                     <input onChange={handleBgColor} className="hidden" type="color" name="meme-img" id="meme-img" value={bgColor} />
                 </div>
-                <div style={{ background: bgColor }} className="meme-image md:w-[400px] w-[300px] h-[350px] p-2 mb-4 text-text border-4 rounded-[10px] bg-gray border-accent shadow-lg relative overflow-hidden">
+                <div  ref={memeRef} style={{ background: bgColor }} className="meme-image md:w-[400px] w-[300px] h-[350px] p-2 mb-4 text-text border-4 rounded-[10px] bg-gray border-accent shadow-lg relative overflow-hidden">
                     <span className="absolute top-2 right-2 text-[#0000003f] font-bold block">{brandName} <img className="inline rounded-full" src={brandImage.url || heroImg} width="30px" /></span>
                     {memeArray.map((meme, index) => (
-                        <input key={index} type="text" onChange={handleMemeText} data-index={index} value={meme.text} style={{ color: meme.color, fontFamily: meme.font, fontSize: `${meme.textSize}px`, fontWeight: meme.isBold ? "bolder" : "normal" }} className="meme-text outline-none absolute text-center bg-[transparent] text-sm" />
+                        <div maxLength={50} key={index} type="text" data-index={index} style={{ color: meme.color, width: '50%',   fontFamily: meme.font, fontSize: `${meme.textSize}px`, fontWeight: meme.isBold ? "bolder" : "normal" }} className="meme-text outline-none absolute bg-[transparent] text-sm" >{meme.text}</div>
                     ))}
                     {memeImages && memeImages.map((image, index) => (
                         <img className="meme-images absolute" key={index} src={image.url} style={{ width: `${image.size}px`, height: `${image.size}px` }} />
@@ -306,7 +323,7 @@ const MemeEditor = () => {
                     </div>
                 </div>
                 <div>
-                    <a className='px-4 py-2 w-fit whitespace-nowrap bg-gray text-text font-bold rounded-md hover:bg-accent hover:text-gray mr-2' href="" download>Download</a>
+                    <a onClick={downloadMeme} className='px-4 py-2 w-fit whitespace-nowrap bg-gray text-text font-bold rounded-md hover:bg-accent hover:text-gray mr-2' href="" download>Download</a>
                     <a className='px-4 py-2 w-fit whitespace-nowrap bg-accent text-gray font-bold rounded-md hover:bg-gray hover:text-accent' href="">Share to WhatsApp</a>
                 </div>
             </div>
